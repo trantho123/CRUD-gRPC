@@ -25,7 +25,7 @@ func main() {
 	} else {
 		println("Connected to database")
 	}
-	repo := repo.New(con.Collection("posts"))
+	repo := repo.New(con)
 	ctr := controller.New(repo)
 	lis, err := net.Listen("tcp", ":"+config["PORT"])
 	if err != nil {
