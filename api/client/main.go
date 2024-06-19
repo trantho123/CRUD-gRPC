@@ -21,11 +21,28 @@ func main() {
 	ctx, cancel := context.WithTimeout(context.Background(), time.Second)
 	defer cancel()
 
-	// resp, err := clientPostService.GetPost(ctx, &pb.PostRequest{Id: "666332732a51465983a26a13"})
-	// if err != nil {
-	// 	log.Fatalf("Could not get post: %v", err)
-	// }
+	clientUserService := pb.NewUserServiceClient(conn)
+	a := "66728cd690db585bd1a26a1a"
+	b := "name"
+	c := "email"
+	d := "aaaaa"
+	ketqua, err := clientUserService.UpdateUser(ctx, &pb.UpdateUserRequest{
+		Id:       a,
+		Name:     &b,
+		Email:    &c,
+		Password: &d,
+	})
+	if err != nil {
+		log.Fatalf("Could not get user: %v", err)
+	} else {
+		log.Println("Update user: Susscess", ketqua)
+	}
 
+	resp, err := clientPostService.GetPost(ctx, &pb.PostRequest{Id: "66728cd690db585bd1a26a13"})
+	if err != nil {
+		log.Fatalf("Could not get post: %v", err)
+	}
+	log.Println("Get user: ", resp)
 	// valPage, err := strconv.ParseInt("1", 10, 64)
 	// if err != nil {
 	// 	// Xử lý lỗi
@@ -72,18 +89,18 @@ func main() {
 	// }
 	// log.Println("Delete post: ", stream)
 
-	title := "Updated Title"
-	content := "abc xyz"
-	image := "updated_image.jpg"
-	user := "user1"
-	stream, err := clientPostService.UpdatePost(ctx, &pb.UpdatePostRequest{
-		Id:      "667182493d6fc26603a26a14",
-		Title:   &title,
-		Content: &content,
-		Image:   &image,
-		User:    &user})
-	if err != nil {
-		log.Fatalf("Could not get post: %v", err)
-	}
-	log.Println(" post: ", stream)
+	// title := "Updated Title"
+	// content := "abc xyz"
+	// image := "updated_image.jpg"
+	// user := "user1"
+	// stream, err := clientPostService.UpdatePost(ctx, &pb.UpdatePostRequest{
+	// 	Id:      "667182493d6fc26603a26a14",
+	// 	Title:   &title,
+	// 	Content: &content,
+	// 	Image:   &image,
+	// 	User:    &user})
+	// if err != nil {
+	// 	log.Fatalf("Could not get post: %v", err)
+	// }
+	// log.Println(" post: ", stream)
 }

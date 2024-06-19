@@ -9,35 +9,25 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func (i *impl) UpdatePost(ctx context.Context, id primitive.ObjectID, post *model.UpdatePost) error {
-	doc, err := ToDoc(post)
+func (i *implPost) UpdatePost(ctx context.Context, objId primitive.ObjectID, post *model.UpdatePost) error {
+	data, err := bson.Marshal(post)
 	if err != nil {
 		return err
 	}
-
+	var doc bson.M
+	err = bson.Unmarshal(data, &doc)
+	if err != nil {
+		return err
+	}
 	update := bson.M{
 		"$set": doc,
 	}
-
-	_, err = i.client.UpdateByID(ctx, id, update)
+	log.Println("update", update)
+	_, err = i.collection.UpdateByID(ctx, objId, update)
 	if err != nil {
 		log.Println("repo-UpdatePost", err)
 		return err
 	}
 
 	return nil
-}
-
-func ToDoc(v interface{}) (bson.M, error) {
-	data, err := bson.Marshal(v)
-	if err != nil {
-		return nil, err
-	}
-
-	var doc bson.M
-	err = bson.Unmarshal(data, &doc)
-	if err != nil {
-		return nil, err
-	}
-	return doc, nil
 }

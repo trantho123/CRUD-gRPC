@@ -8,8 +8,8 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func (i *impl) DeletePost(ctx context.Context, id primitive.ObjectID) error {
-	_, err := i.client.DeleteOne(ctx, bson.M{"_id": id})
+func (i *implPost) DeletePost(ctx context.Context, objId primitive.ObjectID) error {
+	_, err := i.collection.DeleteOne(ctx, bson.M{"_id": objId})
 	if err != nil {
 		log.Println("repo-DeletePost", err)
 		return err

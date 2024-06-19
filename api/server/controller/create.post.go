@@ -7,7 +7,7 @@ import (
 	model "github.com/trantho123/CRUD-gRPC/api/server/models"
 )
 
-func (i *impl) CreatePost(ctx context.Context, post *model.CreatePostRequest) error {
+func (i *implPost) CreatePost(ctx context.Context, post *model.CreatePostRequest) error {
 	err := i.repo.CreatePost(ctx, post)
 	if err != nil {
 		return errors.New("failed to create post")

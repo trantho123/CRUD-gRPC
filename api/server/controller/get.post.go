@@ -8,7 +8,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func (i *impl) GetPost(ctx context.Context, id string) (*model.DBPost, error) {
+func (i *implPost) GetPost(ctx context.Context, id string) (*model.DBPost, error) {
 	findId, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
 		return nil, errors.New("invalid id")

@@ -1,0 +1,27 @@
+syntax = "proto3";
+
+package pb;
+
+option go_package = "github.com/trantho123/CRUD-gRPC/api/pb";
+
+service UserService {
+    rpc GetMe(GetMeRequest) returns (UserResponse) {}
+    rpc UpdateUser(UpdateUserRequest) returns (UpdateUserResponse) {}
+}
+message User {
+    string Id = 1;
+    string Name = 2;
+    string Email =3;
+    string Password = 4;
+}
+message GetMeRequest { string Id = 1; }
+message UserResponse { User User = 1; }
+
+message UpdateUserRequest {
+    string Id = 1;
+    optional string Name = 2;
+    optional string Email = 3;
+    optional string Password = 4; 
+}
+
+message UpdateUserResponse { bool susscess = 1; }

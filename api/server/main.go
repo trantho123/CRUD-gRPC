@@ -25,15 +25,22 @@ func main() {
 	} else {
 		println("Connected to database")
 	}
-	repo := repo.New(con)
-	ctr := controller.New(repo)
+
+	repoPost := repo.NewPostCollection(con)
+	ctrPost := controller.NewPostController(repoPost)
+
+	repoUser := repo.NewUserCollection(con)
+	ctrUser := controller.NewUserController(repoUser)
+
 	lis, err := net.Listen("tcp", ":"+config["PORT"])
 	if err != nil {
 		log.Fatalf("Failed to listen: %v", err)
 	}
 	s := grpc.NewServer()
-	postServiceServer := gapi.NewPostServiceServer(ctr)
+	postServiceServer := gapi.NewPostServiceServer(ctrPost)
+	userServiceServer := gapi.NewUserServiceServer(ctrUser)
 	pb.RegisterPostServiceServer(s, postServiceServer)
+	pb.RegisterUserServiceServer(s, userServiceServer)
 	if err := s.Serve(lis); err != nil {
 		log.Fatalf("Failed to serve: %v", err)
 	}

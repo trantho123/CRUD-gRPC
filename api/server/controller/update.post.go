@@ -9,7 +9,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func (i *impl) UpdatePostById(ctx context.Context, id string, post *model.UpdatePost) error {
+func (i *implPost) UpdatePostById(ctx context.Context, id string, post *model.UpdatePost) error {
 	log.Println("controller-UpdatePostById: ", post)
 	findId, err := primitive.ObjectIDFromHex(id)
 	if err != nil {

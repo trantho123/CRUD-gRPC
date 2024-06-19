@@ -7,7 +7,7 @@ import (
 	"go.mongodb.org/mongo-driver/bson/primitive"
 )
 
-func (i *impl) DeletePostById(ctx context.Context, id string) error {
+func (i *implPost) DeletePostById(ctx context.Context, id string) error {
 	findId, err := primitive.ObjectIDFromHex(id)
 	if err != nil {
 		return errors.New("invalid id")

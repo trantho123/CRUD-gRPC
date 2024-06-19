@@ -10,10 +10,10 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-func (i *impl) GetPost(ctx context.Context, id primitive.ObjectID) (*model.DBPost, error) {
+func (i *implPost) GetPost(ctx context.Context, objId primitive.ObjectID) (*model.DBPost, error) {
 	var post model.DBPost
-	filter := bson.M{"_id": id}
-	err := i.client.FindOne(ctx, filter).Decode(&post)
+	filter := bson.M{"_id": objId}
+	err := i.collection.FindOne(ctx, filter).Decode(&post)
 	if err != nil {
 		if err == mongo.ErrNoDocuments {
 			log.Println("repo-GetPost1", err)

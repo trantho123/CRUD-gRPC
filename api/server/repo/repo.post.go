@@ -8,17 +8,17 @@ import (
 	"go.mongodb.org/mongo-driver/mongo"
 )
 
-type Registry interface {
-	GetPost(ctx context.Context, id primitive.ObjectID) (*model.DBPost, error)
+type RegistryPost interface {
+	GetPost(ctx context.Context, objId primitive.ObjectID) (*model.DBPost, error)
 	GetPosts(ctx context.Context, page int, limit int) (*[]model.DBPost, error)
 	CreatePost(ctx context.Context, post *model.CreatePostRequest) error
-	UpdatePost(ctx context.Context, id primitive.ObjectID, post *model.UpdatePost) error
-	DeletePost(ctx context.Context, id primitive.ObjectID) error
+	UpdatePost(ctx context.Context, objId primitive.ObjectID, post *model.UpdatePost) error
+	DeletePost(ctx context.Context, objId primitive.ObjectID) error
 }
-type impl struct {
-	client *mongo.Collection
+type implPost struct {
+	collection *mongo.Collection
 }
 
-func New(client *mongo.Database) Registry {
-	return &impl{client: client.Collection("posts")}
+func NewPostCollection(collection *mongo.Database) RegistryPost {
+	return &implPost{collection: collection.Collection("posts")}
 }

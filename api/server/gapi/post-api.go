@@ -13,10 +13,10 @@ import (
 
 type PostServiceServer struct {
 	pb.UnimplementedPostServiceServer
-	i controller.Controller
+	i controller.PostController
 }
 
-func NewPostServiceServer(i controller.Controller) *PostServiceServer {
+func NewPostServiceServer(i controller.PostController) *PostServiceServer {
 	return &PostServiceServer{i: i}
 }
 

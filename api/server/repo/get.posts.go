@@ -9,13 +9,13 @@ import (
 	"go.mongodb.org/mongo-driver/mongo/options"
 )
 
-func (i *impl) GetPosts(ctx context.Context, page int, limit int) (*[]model.DBPost, error) {
+func (i *implPost) GetPosts(ctx context.Context, page int, limit int) (*[]model.DBPost, error) {
 	var posts []model.DBPost
 	findOptions := options.Find()
 	findOptions.SetSkip(int64((page - 1) * limit))
 	findOptions.SetLimit(int64(limit))
 
-	cursor, err := i.client.Find(ctx, bson.M{}, findOptions)
+	cursor, err := i.collection.Find(ctx, bson.M{}, findOptions)
 	if err != nil {
 		log.Println("repo-GetPosts1", err)
 		return nil, err
